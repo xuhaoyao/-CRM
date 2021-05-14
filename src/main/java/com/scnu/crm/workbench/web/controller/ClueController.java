@@ -10,6 +10,7 @@ import com.scnu.crm.utils.UUIDUtil;
 import com.scnu.crm.vo.PaginationVo;
 import com.scnu.crm.workbench.domain.Activity;
 import com.scnu.crm.workbench.domain.Clue;
+import com.scnu.crm.workbench.domain.Tran;
 import com.scnu.crm.workbench.service.ActivityService;
 import com.scnu.crm.workbench.service.ClueService;
 import com.scnu.crm.workbench.service.impl.ActivityServiceImpl;
@@ -51,8 +52,29 @@ public class ClueController extends HttpServlet {
         }
     }
 
-    private void convert(HttpServletRequest request, HttpServletResponse response) {
+    private void convert(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String method = request.getMethod();
+        String clueId = request.getParameter("clueId");
+        String createTime = DateTimeUtil.getSysTime();
+        String createBy = ((User)request.getSession(false).getAttribute("user")).getName();
+        Tran t = null;
+        if("POST".equals(method)){
+            t = new Tran();
+            t.setId(UUIDUtil.getUUID());
+            t.setMoney(request.getParameter("money"));
+            t.setName(request.getParameter("name"));
+            t.setExpectedDate(request.getParameter("expectedDate"));
+            t.setStage(request.getParameter("stage"));
+            t.setActivityId(request.getParameter("activityId"));
+            t.setCreateBy(createBy);
+            t.setCreateTime(createTime);
+        }
+        ClueService cs = (ClueService) ServiceFactory.getService(new ClueServiceImpl());
+        boolean flag = cs.convert(clueId,t,createBy,createTime);
+        if(flag)
+            response.sendRedirect(request.getContextPath() + "/workbench/clue/index.jsp");
+        else
+            System.out.println("出bug");
 
     }
 
