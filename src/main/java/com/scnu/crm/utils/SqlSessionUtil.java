@@ -39,7 +39,14 @@ public class SqlSessionUtil {
 			session = factory.openSession();
 			t.set(session);
 		}
-		
+		/*
+			前端发送给后端的每一个请求（业务） 都是一条独立的线程,
+			同一个业务下 session都是同一个引用 被存进了ThreadLocal里面保存起来
+			因此dao层连接数据库的connection也是同一个引用
+			因此动态代理临时开一个session是没问题的
+			System.out.println(session);
+			System.out.println(Thread.currentThread());
+		 */
 		return session;
 		
 	}
