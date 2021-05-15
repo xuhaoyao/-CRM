@@ -88,6 +88,23 @@
     <url-pattern>/workbench/clue/convert.do</url-pattern>
   </servlet-mapping>
 
+  <!--交易控制器-->
+  <servlet>
+    <servlet-name>TranController</servlet-name>
+    <servlet-class>com.scnu.crm.workbench.web.controller.TranController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TranController</servlet-name>
+    <url-pattern>/workbench/tran/getUserList.do</url-pattern>
+    <url-pattern>/workbench/tran/getCustomerName.do</url-pattern>
+    <url-pattern>/workbench/tran/getActivityListByName1.do</url-pattern>
+    <url-pattern>/workbench/tran/getContactsListByName.do</url-pattern>
+    <url-pattern>/workbench/tran/save.do</url-pattern>
+    <url-pattern>/workbench/tran/detail.do</url-pattern>
+    <url-pattern>/workbench/tran/getHistoryList.do</url-pattern>
+    <url-pattern>/workbench/tran/changeStage.do</url-pattern>
+  </servlet-mapping>
+
 </web-app>
 
 
