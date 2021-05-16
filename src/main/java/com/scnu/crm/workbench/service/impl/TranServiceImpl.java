@@ -10,7 +10,7 @@ import com.scnu.crm.workbench.domain.Tran;
 import com.scnu.crm.workbench.domain.TranHistory;
 import com.scnu.crm.workbench.service.TranService;
 
-import java.util.List;
+import java.util.*;
 
 public class TranServiceImpl implements TranService {
     private TranDao tranDao = SqlSessionUtil.getSqlSession().getMapper(TranDao.class);
@@ -79,5 +79,33 @@ public class TranServiceImpl implements TranService {
             flag = (1 == tranHistoryDao.save(th));
         }
         return flag;
+    }
+
+    public Map<String, Object> showEcharts() {
+        List<Map<String,String>> dataList = tranDao.getDataList();
+        int max = tranDao.getMaxRecord();
+        Map<String,Object> map = new HashMap<String, Object>();
+        map.put("max",max);
+        map.put("dataList",dataList);
+        return map;
+    }
+
+    public Map<String, List<String>> showEcharts1() {
+        Map<String,List<String>> map = new HashMap<String, List<String>>();
+        List<Map<String,String>> dataList = tranDao.getDataList();
+        List<String> name = new ArrayList<String>();
+        List<String> value = new ArrayList<String>();
+        for (Map<String, String> m : dataList) {
+            Set<String> set = m.keySet();
+            for (String s : set) {
+                if("name".equals(s))
+                    name.add(m.get(s));
+                else
+                    value.add(m.get(s));
+            }
+        }
+        map.put("name",name);
+        map.put("value",value);
+        return map;
     }
 }
