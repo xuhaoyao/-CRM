@@ -103,6 +103,8 @@
     <url-pattern>/workbench/tran/detail.do</url-pattern>
     <url-pattern>/workbench/tran/getHistoryList.do</url-pattern>
     <url-pattern>/workbench/tran/changeStage.do</url-pattern>
+    <url-pattern>/workbench/tran/showEcharts.do</url-pattern>
+    <url-pattern>/workbench/tran/showEcharts1.do</url-pattern>
   </servlet-mapping>
 
 </web-app>
