@@ -51,7 +51,23 @@ public class TranController extends HttpServlet {
             getHistoryList(request,response);
         }else if("/workbench/tran/changeStage.do".equals(path)){
             changeStage(request,response);
+        }else if("/workbench/tran/showEcharts.do".equals(path)){
+            showEcharts(request,response);
+        }else if("/workbench/tran/showEcharts1.do".equals(path)){
+            showEcharts1(request,response);
         }
+    }
+
+    private void showEcharts1(HttpServletRequest request, HttpServletResponse response) {
+        TranService ts = (TranService) ServiceFactory.getService(new TranServiceImpl());
+        Map<String,List<String>> map = ts.showEcharts1();
+        PrintJson.printJsonObj(response,map);
+    }
+
+    private void showEcharts(HttpServletRequest request, HttpServletResponse response) {
+        TranService ts = (TranService) ServiceFactory.getService(new TranServiceImpl());
+        Map<String,Object> map = ts.showEcharts();
+        PrintJson.printJsonObj(response,map);
     }
 
     private void changeStage(HttpServletRequest request, HttpServletResponse response) {
